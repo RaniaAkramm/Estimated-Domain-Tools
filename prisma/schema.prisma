@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  listings     Listing[]
+  offers       Offer[]
+}
+
+model Listing {
+  id          String   @id @default(cuid())
+  domain      String
+  askPrice    Int?
+  minOffer    Int?
+  saleType    String   // "BUY_NOW" | "OFFER" | "BOTH"
+  listingUrl  String
+  status      String   @default("ACTIVE") // ACTIVE | SOLD | REMOVED
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  offers      Offer[]
+}
+
+model Offer {
+  id        String   @id @default(cuid())
+  amount    Int
+  message   String?
+  status    String   @default("PENDING") // PENDING | ACCEPTED | DECLINED
+  createdAt DateTime @default(now())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+}
