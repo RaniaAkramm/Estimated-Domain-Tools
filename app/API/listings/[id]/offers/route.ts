@@ -33,7 +33,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
       { error: `The minimum offer for this domain is $${listing.minOffer}.` },
       { status: 400 }
     );
-  }
+  }.     
 
   const offer = await prisma.offer.create({
     data: { amount, message, listingId: listing.id, userId },
