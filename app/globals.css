@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Mono:wght@400;700&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #1B2420;
+}
+
+::selection {
+  background: #A9803D;
+  color: #EFEAD8;
+}
+
+:focus-visible {
+  outline: 2px solid #A9803D;
+  outline-offset: 2px;
+}
